@@ -16,3 +16,4 @@ Thumbs.db
 # Project private
 project.private.config.json
 .workbuddy/
+miniprogram/config.js
