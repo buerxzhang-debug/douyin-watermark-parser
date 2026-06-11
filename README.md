@@ -20,7 +20,9 @@
 │       ├── package.json
 │       └── config.json
 ├── miniprogram/
-│   ├── app.js / app.json / app.wxss
+│   ├── app.js
+│   ├── app.json / app.wxss
+│   ├── config.example.js      # 云环境 ID 配置模板（部署时复制为 config.js）
 │   ├── components/
 │   │   └── privacy-popup/     # 隐私合规弹窗组件
 │   ├── images/
@@ -46,8 +48,11 @@
    git clone git@github.com:buerxzhang-debug/douyin-watermark-parser.git
    ```
 
-2. **修改云环境 ID**
-   - 在 `miniprogram/app.js` 中将 `env` 改为你的云环境 ID
+2. **配置云环境 ID**
+   ```bash
+   cp miniprogram/config.example.js miniprogram/config.js
+   ```
+   编辑 `miniprogram/config.js`，将 `CLOUD_ENV` 改为你的云环境 ID
 
 3. **上传云函数**
    ```bash
