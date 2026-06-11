@@ -1,0 +1,82 @@
+/* 隐私弹窗样式 */
+.privacy-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.privacy-dialog {
+  width: 580rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 48rpx 40rpx 36rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.12);
+}
+
+.privacy-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  text-align: center;
+  margin-bottom: 28rpx;
+}
+
+.privacy-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.privacy-link {
+  color: #6C5CE7;
+  font-weight: 500;
+}
+
+.privacy-btns {
+  display: flex;
+  gap: 20rpx;
+}
+
+.privacy-btn {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.privacy-btn::after {
+  border: none;
+}
+
+.btn-reject {
+  background: #f5f5f7;
+  color: #999;
+}
+
+.btn-reject:active {
+  background: #ebebed;
+}
+
+.btn-agree {
+  background: linear-gradient(135deg, #6C5CE7, #a29bfe);
+  color: #fff;
+}
+
+.btn-agree:active {
+  opacity: 0.85;
+}

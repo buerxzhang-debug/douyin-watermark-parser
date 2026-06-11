@@ -1,0 +1,70 @@
+/**app.wxss**/
+page {
+  --status-bar-height: 44px;
+  --nav-bar-height: 44px;
+  --primary: #6C5CE7;
+  --primary-light: rgba(108, 92, 231, 0.08);
+  --primary-gradient: linear-gradient(135deg, #6C5CE7, #A29BFE);
+  --bg: #F2F0F7;
+  --card: #FFFFFF;
+  --text-primary: #1D1D2C;
+  --text-secondary: #6E6E82;
+  --text-hint: #A8A8BE;
+  --border: rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2rpx 12rpx rgba(108, 92, 231, 0.06);
+  --shadow-md: 0 8rpx 32rpx rgba(108, 92, 231, 0.08);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --radius-sm: 16rpx;
+  --radius-md: 24rpx;
+  --radius-lg: 32rpx;
+  --radius-full: 200rpx;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-primary);
+}
+
+/* 系统深色模式：强制保持浅色（小程序已关闭 darkmode，但 webview 仍可能继承系统色） */
+
+view, text, image {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===== 自定义导航栏 ===== */
+.custom-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.custom-nav .nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nav-bar-height);
+  position: relative;
+}
+
+.custom-nav .nav-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1rpx;
+}
+
+/* ===== 页面内容区域 ===== */
+.page-body {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 130rpx);
+}

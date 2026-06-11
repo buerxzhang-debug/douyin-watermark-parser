@@ -1,0 +1,537 @@
+/* pages/mine/index.wxss */
+
+/* ===== 用户资料区 ===== */
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 40rpx 32rpx 32rpx;
+}
+
+.avatar-wrap {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(108, 92, 231, 0.2);
+}
+
+.avatar-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.ap-head {
+  width: 32rpx;
+  height: 32rpx;
+  border: 4rpx solid rgba(255,255,255,0.9);
+  border-radius: 50%;
+}
+
+.ap-body {
+  width: 50rpx;
+  height: 22rpx;
+  border: 4rpx solid rgba(255,255,255,0.9);
+  border-bottom: none;
+  border-radius: 28rpx 28rpx 0 0;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.uid {
+  font-size: 24rpx;
+  color: var(--text-hint);
+}
+
+/* ===== 功能菜单 ===== */
+.menu-group {
+  padding: 0 32rpx;
+  margin-bottom: 8rpx;
+}
+
+.menu-group-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--text-hint);
+  padding: 24rpx 8rpx 12rpx;
+  letter-spacing: 2rpx;
+}
+
+.menu-card {
+  background: var(--card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.menu-item:active {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 84rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: var(--border);
+}
+
+.menu-item:last-child::after {
+  display: none;
+}
+
+/* button 直接作为菜单项（彻底重置微信 button 默认样式） */
+.menu-item-btn {
+  display: flex !important;
+  align-items: center;
+  padding: 28rpx 24rpx !important;
+  position: relative;
+  transition: background 0.15s;
+  /* 彻底重置 button 默认样式 */
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+  font-size: 28rpx !important;
+  font-weight: normal !important;
+  font-family: inherit !important;
+  text-align: left !important;
+  color: inherit !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  overflow: visible;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.menu-item-btn::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 84rpx !important;
+  right: 24rpx !important;
+  height: 1rpx !important;
+  background: var(--border) !important;
+  /* 覆盖微信 button 默认的 ::after 边框 */
+  border: none !important;
+  border-radius: 0 !important;
+  top: auto !important;
+  width: auto !important;
+  transform: none !important;
+  display: block !important;
+}
+
+.menu-item-btn:active {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* 图标容器 */
+.menu-icon {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.perm-icon { background: rgba(64, 158, 255, 0.1); }
+.cache-icon { background: rgba(255, 82, 82, 0.1); }
+.cs-icon { background: rgba(7, 193, 96, 0.1); }
+.share-icon { background: rgba(255, 153, 0, 0.1); }
+.fb-icon { background: rgba(155, 89, 182, 0.1); }
+.about-icon { background: rgba(52, 73, 94, 0.1); }
+
+/* CSS 图标 */
+.mi-shield {
+  width: 18rpx;
+  height: 22rpx;
+  border: 3rpx solid #409EFF;
+  border-radius: 4rpx 4rpx 50% 50%;
+}
+
+.mi-trash {
+  width: 18rpx;
+  height: 18rpx;
+  border: 3rpx solid #FF5252;
+  border-top: none;
+  border-radius: 0 0 4rpx 4rpx;
+  position: relative;
+}
+
+.mi-trash::before {
+  content: "";
+  position: absolute;
+  top: -6rpx;
+  left: -4rpx;
+  width: 24rpx;
+  height: 3rpx;
+  background: #FF5252;
+  border-radius: 2rpx;
+}
+
+.mi-chat {
+  width: 22rpx;
+  height: 18rpx;
+  border: 3rpx solid #07C160;
+  border-radius: 6rpx;
+  position: relative;
+}
+
+.mi-chat::after {
+  content: "";
+  position: absolute;
+  bottom: -8rpx;
+  left: 4rpx;
+  width: 0;
+  height: 0;
+  border-left: 6rpx solid #07C160;
+  border-right: 6rpx solid transparent;
+  border-top: 6rpx solid #07C160;
+  border-bottom: 6rpx solid transparent;
+}
+
+.mi-share {
+  width: 0;
+  height: 0;
+  border-left: 12rpx solid #FF9900;
+  border-top: 8rpx solid transparent;
+  border-bottom: 8rpx solid transparent;
+  position: relative;
+  margin-left: 4rpx;
+}
+
+.mi-share::before {
+  content: "";
+  position: absolute;
+  top: -3rpx;
+  left: -16rpx;
+  width: 10rpx;
+  height: 6rpx;
+  background: #FF9900;
+  border-radius: 2rpx;
+}
+
+.mi-pen {
+  width: 4rpx;
+  height: 20rpx;
+  background: #9B59B6;
+  border-radius: 2rpx;
+  transform: rotate(-30deg);
+  position: relative;
+}
+
+.mi-pen::after {
+  content: "";
+  position: absolute;
+  bottom: -4rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4rpx solid transparent;
+  border-right: 4rpx solid transparent;
+  border-top: 6rpx solid #9B59B6;
+}
+
+.mi-info {
+  width: 20rpx;
+  height: 20rpx;
+  border: 3rpx solid #34495E;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mi-info::after {
+  content: "i";
+  font-size: 14rpx;
+  font-weight: 700;
+  color: #34495E;
+  font-style: italic;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: var(--text-primary);
+}
+
+/* 确保 button 内的菜单文字样式与普通 view 一致 */
+.menu-item-btn .menu-text {
+  font-size: 28rpx !important;
+  font-weight: normal !important;
+  color: var(--text-primary) !important;
+}
+
+.menu-value {
+  font-size: 24rpx;
+  color: var(--text-hint);
+  margin-right: 12rpx;
+}
+
+.menu-arrow {
+  width: 14rpx;
+  height: 14rpx;
+  border-top: 3rpx solid var(--text-hint);
+  border-right: 3rpx solid var(--text-hint);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* ===== 底部 ===== */
+.footer-text {
+  text-align: center;
+  padding: 48rpx 0 32rpx;
+  font-size: 22rpx;
+  color: var(--text-hint);
+  letter-spacing: 2rpx;
+}
+
+/* ===== 使用指南图标 ===== */
+
+/* ===== 解析历史图标 ===== */
+.history-icon { background: rgba(108, 92, 231, 0.1); }
+
+.mi-clock {
+  width: 22rpx;
+  height: 22rpx;
+  border: 3rpx solid #6C5CE7;
+  border-radius: 50%;
+  position: relative;
+}
+
+.mi-clock::after {
+  content: "";
+  position: absolute;
+  top: 3rpx;
+  left: 50%;
+  width: 2rpx;
+  height: 8rpx;
+  background: #6C5CE7;
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(30deg);
+}
+
+/* ===== 使用指南图标 ===== */
+.guide-icon { background: rgba(52, 152, 219, 0.1); }
+
+.mi-book {
+  width: 18rpx;
+  height: 20rpx;
+  border: 3rpx solid #3498DB;
+  border-radius: 2rpx 4rpx 4rpx 2rpx;
+  border-left-width: 5rpx;
+}
+
+/* ===== 自定义弹窗 ===== */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  width: 580rpx;
+  background: var(--card);
+  border-radius: 24rpx;
+  overflow: hidden;
+  animation: slideUp 0.25s ease;
+}
+
+.modal-content-lg {
+  width: 620rpx;
+  max-height: 80vh;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40rpx); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 32rpx 16rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal-close {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: var(--text-hint);
+  border-radius: 50%;
+}
+
+.modal-close:active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.modal-body {
+  padding: 24rpx 32rpx;
+}
+
+.modal-footer {
+  padding: 16rpx 32rpx 32rpx;
+}
+
+.modal-btn {
+  background: var(--primary-gradient);
+  color: #fff;
+  text-align: center;
+  padding: 20rpx 0;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.modal-btn:active {
+  opacity: 0.85;
+}
+
+/* 关于弹窗 */
+.about-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+
+.about-logo-inner {
+  width: 96rpx;
+  height: 96rpx;
+  background: var(--primary-gradient);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+}
+
+.about-version {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--text-hint);
+  margin-bottom: 20rpx;
+}
+
+.about-desc {
+  display: block;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* 使用指南弹窗 */
+.guide-body {
+  padding: 16rpx 32rpx;
+}
+
+.guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+  padding: 20rpx 0;
+}
+
+.guide-item + .guide-item {
+  border-top: 1rpx solid var(--border);
+}
+
+.guide-num {
+  width: 44rpx;
+  height: 44rpx;
+  background: var(--primary-gradient);
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4rpx;
+}
+
+.guide-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.guide-main {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.guide-sub {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.guide-footer-note {
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--text-hint);
+  padding: 8rpx 32rpx 0;
+}
+
+/* ===== 深色模式弹窗样式已移除 ===== */

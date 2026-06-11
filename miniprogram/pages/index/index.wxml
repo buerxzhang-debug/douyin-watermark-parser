@@ -1,0 +1,174 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <text class="nav-title">解析助手</text>
+    </view>
+  </view>
+
+  <!-- 页面主体 -->
+  <view class="page-body" style="padding-top: {{statusBarHeight + 44}}px;">
+    <!-- 输入区域 -->
+    <view class="input-section">
+      <view class="input-card">
+        <view class="input-top">
+          <view class="input-badge">链接</view>
+        </view>
+        <textarea
+          class="url-input"
+          placeholder="输入视频或图集链接"
+          placeholder-class="placeholder"
+          value="{{inputUrl}}"
+          bindinput="onInputChange"
+          maxlength="500"
+          auto-height
+        />
+        <view class="input-bottom">
+          <view class="chip-btn chip-paste" bindtap="onPaste">
+            <text class="chip-icon">⎘</text>
+            <text>粘贴</text>
+          </view>
+          <view class="chip-btn" bindtap="onClear" wx:if="{{inputUrl}}">
+            <text class="chip-icon">✕</text>
+            <text>清空</text>
+          </view>
+          <view style="flex:1"></view>
+          <text class="char-count" wx:if="{{inputUrl}}">{{inputUrl.length}}</text>
+        </view>
+      </view>
+
+      <!-- 解析按钮 -->
+      <view class="parse-btn {{parsing ? 'loading' : ''}}" bindtap="onParse">
+        <text wx:if="{{!parsing}}">开始解析</text>
+        <view wx:else class="loading-wrap">
+          <view class="loading-spinner"></view>
+          <text>正在解析...</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 错误提示 -->
+    <view class="error-toast" wx:if="{{error}}">
+      <text class="error-dot">●</text>
+      <text class="error-text">{{error}}</text>
+    </view>
+
+    <!-- 解析结果 -->
+    <view class="result-section" wx:if="{{result}}">
+      <view class="result-header">
+        <view class="type-pill {{result.type === 'note' ? 'pill-note' : 'pill-video'}}">
+          {{result.type === 'note' ? '图文' : '视频'}}
+        </view>
+        <text class="result-author" wx:if="{{result.author}}">@{{result.author}}</text>
+      </view>
+
+      <!-- 视频结果 -->
+      <block wx:if="{{result.type === 'video'}}">
+        <view class="media-wrap">
+          <video
+            class="result-video"
+            src="{{result.resources[0].fileID}}"
+            poster="{{result.coverUrl}}"
+            controls
+            show-center-play-btn
+            object-fit="contain"
+          />
+        </view>
+
+        <!-- 保存按钮（紧跟视频，避免文案过长时被顶出屏幕） -->
+        <view class="action-bar">
+          <view class="action-main-btn" bindtap="onSaveVideo" data-file-id="{{result.resources[0].fileID}}">
+            保存视频到相册
+          </view>
+        </view>
+
+        <!-- 封面预览（有封面才显示） -->
+        <view class="cover-section" wx:if="{{result.coverUrl}}">
+          <view class="section-label">高清封面</view>
+          <view class="cover-wrap" bindtap="onPreviewCover" data-url="{{result.coverUrl}}">
+            <image class="cover-image" src="{{result.coverUrl}}" mode="widthFix" />
+          </view>
+        </view>
+        <!-- 文案区域（有文案才显示） -->
+        <view class="desc-section" wx:if="{{result.desc}}">
+          <view class="section-label">视频文案 <text class="label-hint">长按复制</text></view>
+          <view class="desc-card">
+            <text class="desc-full-text" selectable>{{result.desc}}</text>
+          </view>
+        </view>
+      </block>
+
+      <!-- 图文结果（宫格缩略图，点击预览长按保存单张） -->
+      <block wx:if="{{result.type === 'note'}}">
+        <view class="save-hint save-hint-top">点击图片预览，长按可保存单张</view>
+        <view class="media-wrap">
+          <view class="image-grid-3">
+            <view
+              class="grid-thumb"
+              wx:for="{{result.resources}}"
+              wx:key="fileID"
+              bindtap="onPreviewImage"
+              data-url="{{item.fileID}}"
+            >
+              <image
+                class="thumb-image"
+                src="{{item.fileID}}"
+                mode="aspectFill"
+                lazy-load
+              />
+              <view class="thumb-index">{{index + 1}}</view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 保存按钮（紧跟图集，避免文案过长时被顶出屏幕） -->
+        <view class="action-bar">
+          <view class="action-main-btn" bindtap="onSaveAllImages">
+            保存全部到相册 ({{result.resources.length}} 张)
+          </view>
+        </view>
+
+        <!-- 文案区域（有文案才显示） -->
+        <view class="desc-section" wx:if="{{result.desc}}">
+          <view class="section-label">图文文案 <text class="label-hint">长按复制</text></view>
+          <view class="desc-card">
+            <text class="desc-full-text" selectable>{{result.desc}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 使用提示 -->
+    <view class="guide-section" wx:if="{{!result && !error}}">
+      <view class="guide-title">如何使用</view>
+      <view class="guide-steps">
+        <view class="guide-step">
+          <view class="step-num">1</view>
+          <view class="step-content">
+            <text class="step-main">复制链接</text>
+            <text class="step-sub">复制要解析的视频或图集链接</text>
+          </view>
+        </view>
+        <view class="guide-step">
+          <view class="step-num">2</view>
+          <view class="step-content">
+            <text class="step-main">粘贴解析</text>
+            <text class="step-sub">粘贴到输入框，点击开始解析</text>
+          </view>
+        </view>
+        <view class="guide-step">
+          <view class="step-num">3</view>
+          <view class="step-content">
+            <text class="step-main">保存内容</text>
+            <text class="step-sub">解析完成后可预览和保存到相册</text>
+          </view>
+        </view>
+      </view>
+      <view class="guide-note">支持解析视频和图集内容</view>
+    </view>
+  </view>
+</view>
+
+<!-- 隐私保护弹窗 -->
+<privacy-popup />

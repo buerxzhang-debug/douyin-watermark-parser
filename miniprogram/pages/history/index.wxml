@@ -1,0 +1,138 @@
+<!--pages/history/index.wxml-->
+<view class="container">
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <view class="nav-back" bindtap="onGoBack">
+        <view class="back-arrow"></view>
+      </view>
+      <text class="nav-title">历史记录</text>
+    </view>
+  </view>
+
+  <view class="page-body" style="padding-top: {{statusBarHeight + 44}}px;">
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{isEmpty && !loading}}">
+      <view class="empty-icon-wrap">
+        <view class="empty-folder"></view>
+      </view>
+      <text class="empty-text">暂无记录</text>
+      <text class="empty-tip">提取的内容会显示在这里</text>
+    </view>
+
+    <!-- 操作工具栏 -->
+    <view class="toolbar" wx:if="{{!isEmpty && !loading}}">
+      <text class="toolbar-count">共 {{totalCount}} 条记录</text>
+      <view style="flex:1"></view>
+      <view class="toolbar-btn danger" bindtap="onDeleteAll">
+        <text>删除全部</text>
+      </view>
+    </view>
+
+    <!-- 记录列表 -->
+    <view class="record-list" wx:if="{{records.length > 0}}">
+      <view class="record-card" wx:for="{{records}}" wx:key="_id">
+        <view class="record-top">
+          <view class="type-pill {{item.type === 'note' ? 'pill-note' : 'pill-video'}}">
+            {{item.type === 'note' ? '图文' : '视频'}}
+          </view>
+          <text class="record-time">{{item.createTimeStr || ''}}</text>
+        </view>
+
+        <text class="record-desc" selectable>{{item.desc || '无描述'}}</text>
+        <text class="record-author" wx:if="{{item.author}}">@{{item.author}}</text>
+
+        <!-- 视频 -->
+        <block wx:if="{{item.type === 'video' && item.resources.length > 0}}">
+          <view class="record-media">
+            <!-- 点击前：封面占位 + 播放按钮 -->
+            <view
+              class="video-placeholder"
+              wx:if="{{!item._playing}}"
+              bindtap="onPlayVideo"
+              data-id="{{item._id}}"
+            >
+              <!-- 有高清封面时显示封面图 -->
+              <image
+                wx:if="{{item.coverUrl}}"
+                class="video-cover-img"
+                src="{{item.coverUrl}}"
+                mode="aspectFill"
+              />
+              <view class="play-btn-wrap">
+                <view class="play-triangle"></view>
+              </view>
+              <text class="play-hint">点击播放</text>
+            </view>
+            <!-- 点击后：真正的 video 组件 -->
+            <video
+              wx:if="{{item._playing}}"
+              class="record-video"
+              src="{{item.resources[0].fileID}}"
+              poster="{{item.coverUrl}}"
+              controls
+              autoplay
+              show-center-play-btn
+              object-fit="contain"
+            />
+          </view>
+        </block>
+
+        <!-- 图文缩略图 -->
+        <block wx:if="{{item.type === 'note' && item.resources.length > 0}}">
+          <scroll-view class="thumb-scroll" scroll-x enable-flex>
+            <image
+              wx:for="{{item.resources}}"
+              wx:for-item="img"
+              wx:key="fileID"
+              class="thumb-img"
+              src="{{img.thumbURL || img.fileID}}"
+              mode="aspectFill"
+              bindtap="onPreviewImage"
+              data-url="{{img.fileID}}"
+              data-urls="{{item.resourceFileIDs}}"
+              lazy-load
+            />
+          </scroll-view>
+          <text class="thumb-count">共 {{item.resources.length}} 张</text>
+        </block>
+
+        <view class="record-bottom">
+          <view
+            class="save-btn"
+            catchtap="onSaveToLocal"
+            data-type="{{item.type}}"
+            data-resources="{{item.resourceFileIDs}}"
+          >
+            {{item.type === 'video' ? '保存视频' : '保存全部图片'}}
+          </view>
+          <text class="save-tip" wx:if="{{item.type === 'note'}}">点击图片后长按保存单张</text>
+          <view style="flex:1"></view>
+          <view
+            class="del-btn"
+            catchtap="onDelete"
+            data-id="{{item._id}}"
+          >
+            删除
+          </view>
+        </view>
+      </view><!-- end record-card -->
+    </view>
+
+    <view class="loading-bar" wx:if="{{loading}}">
+      <view class="loading-dot-group">
+        <view class="ldot"></view>
+        <view class="ldot"></view>
+        <view class="ldot"></view>
+      </view>
+    </view>
+
+    <view class="end-line" wx:if="{{!hasMore && records.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+
+
+</view>
+
+<!-- 隐私保护弹窗 -->
+<privacy-popup />

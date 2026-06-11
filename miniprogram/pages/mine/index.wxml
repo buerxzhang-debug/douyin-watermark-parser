@@ -1,0 +1,122 @@
+<!--pages/mine/index.wxml-->
+<view class="container">
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar">
+      <text class="nav-title">我的</text>
+    </view>
+  </view>
+
+  <view class="page-body" style="padding-top: {{statusBarHeight + 44}}px;">
+    <!-- 用户头像区域 -->
+    <view class="profile-section">
+      <view class="avatar-wrap">
+        <view class="avatar-placeholder">
+          <view class="ap-head"></view>
+          <view class="ap-body"></view>
+        </view>
+      </view>
+      <view class="profile-info">
+        <text class="nickname">{{nickname}}</text>
+        <text class="uid">{{welcomeText}}</text>
+      </view>
+    </view>
+
+    <!-- 功能列表 -->
+    <view class="menu-group">
+      <view class="menu-group-title">常用功能</view>
+      <view class="menu-card">
+        <view class="menu-item" bindtap="onGoHistory">
+          <view class="menu-icon history-icon">
+            <view class="mi-clock"></view>
+          </view>
+          <text class="menu-text">解析历史</text>
+          <view class="menu-arrow"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <view class="menu-group-title">偏好设置</view>
+      <view class="menu-card">
+        <view class="menu-item" bindtap="onPermission">
+          <view class="menu-icon perm-icon">
+            <view class="mi-shield"></view>
+          </view>
+          <text class="menu-text">权限管理</text>
+          <view class="menu-arrow"></view>
+        </view>
+        <view class="menu-item" bindtap="onClearCache">
+          <view class="menu-icon cache-icon">
+            <view class="mi-trash"></view>
+          </view>
+          <text class="menu-text">清理缓存</text>
+          <text class="menu-value">{{cacheSize}}</text>
+          <view class="menu-arrow"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <view class="menu-group-title">帮助与反馈</view>
+      <view class="menu-card">
+        <!-- 联系客服 -->
+        <button class="menu-item-btn" open-type="contact">
+          <view class="menu-icon cs-icon">
+            <view class="mi-chat"></view>
+          </view>
+          <text class="menu-text">联系客服</text>
+          <view class="menu-arrow"></view>
+        </button>
+        <!-- 邀请朋友 -->
+        <button class="menu-item-btn" open-type="share">
+          <view class="menu-icon share-icon">
+            <view class="mi-share"></view>
+          </view>
+          <text class="menu-text">邀请朋友</text>
+          <view class="menu-arrow"></view>
+        </button>
+        <!-- 意见反馈 -->
+        <button class="menu-item-btn" open-type="feedback">
+          <view class="menu-icon fb-icon">
+            <view class="mi-pen"></view>
+          </view>
+          <text class="menu-text">意见反馈</text>
+          <view class="menu-arrow"></view>
+        </button>
+        <!-- 关于我们 -->
+        <view class="menu-item" bindtap="onAbout">
+          <view class="menu-icon about-icon">
+            <view class="mi-info"></view>
+          </view>
+          <text class="menu-text">关于我们</text>
+          <text class="menu-value">{{version}}</text>
+          <view class="menu-arrow"></view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
+
+<!-- 关于我们弹窗 -->
+<view class="modal-mask" wx:if="{{showAbout}}" bindtap="onCloseAbout">
+  <view class="modal-content" catchtap="">
+    <view class="modal-header">
+      <text class="modal-title">关于解析助手</text>
+      <view class="modal-close" bindtap="onCloseAbout">✕</view>
+    </view>
+    <view class="modal-body">
+      <view class="about-logo">
+        <view class="about-logo-inner">🔗</view>
+      </view>
+      <text class="about-version">{{version}}</text>
+      <text class="about-desc">一款简洁高效的链接解析工具\n支持解析视频和图集内容，一键保存到相册</text>
+    </view>
+    <view class="modal-footer">
+      <view class="modal-btn" bindtap="onCloseAbout">知道了</view>
+    </view>
+  </view>
+</view>
+
+<!-- 深色模式选择弹窗已移除 -->
+

@@ -1,0 +1,15 @@
+<!-- 隐私保护弹窗组件 -->
+<view class="privacy-mask" wx:if="{{show}}" catchtouchmove="preventMove">
+  <view class="privacy-dialog">
+    <view class="privacy-title">用户隐私保护提示</view>
+    <view class="privacy-content">
+      <text>在使用本小程序前，请仔细阅读</text>
+      <text class="privacy-link" bindtap="openPrivacyContract">《{{privacyContractName}}》</text>
+      <text>。如您同意，请点击"同意"开始使用。</text>
+    </view>
+    <view class="privacy-btns">
+      <button class="privacy-btn btn-reject" bindtap="handleReject">拒绝</button>
+      <button class="privacy-btn btn-agree" id="agree-btn" open-type="agreePrivacyAuthorization" bindagreeprivacyauthorization="handleAgree">同意</button>
+    </view>
+  </view>
+</view>

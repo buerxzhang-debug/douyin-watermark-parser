@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+cloudfunctions/*/node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project private
+project.private.config.json
+.workbuddy/
